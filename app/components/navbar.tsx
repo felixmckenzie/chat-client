@@ -1,7 +1,11 @@
 'use client' 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import {ArrowSmallUpIcon, ArrowSmallDownIcon} from '@heroicons/react/24/solid'
+import { NavCard } from "./navcard";
 
 export const Navbar = () => {
+    const router = useRouter()
     const [isScrolled, setIsScrolled] = useState(false)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -44,25 +48,25 @@ export const Navbar = () => {
           </div>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="dropdown-toggle text-headline-text hover:text-highlight px-3 py-2 text-sm font-medium"
+                className="dropdown-toggle flex items-center text-headline-text hover:text-highlight px-3 py-2 text-sm font-medium"
               >
-                Features
+                <span>Features</span> { isDropdownOpen ? <ArrowSmallDownIcon className="h-4 w-4"/> : <ArrowSmallUpIcon className="h-4 w-4"/>}
               </button>
           <div className="hidden md:flex items-center space-x-4">
-            <a href="#" className="text-headline-text  hover:text-highlight  px-3 py-2 text-sm font-medium">
+            <button onClick={() => router.push('/signup')} className="text-headline-text  hover:text-highlight  px-3 py-2 text-sm font-medium">
               Sign Up
-            </a>
-            <a href="#" className="text-headline-text  hover:text-highlight px-3 py-2 text-sm font-medium">
+            </button>
+            <button onClick={() => router.push('/signin')} className="text-headline-text  hover:text-highlight px-3 py-2 text-sm font-medium">
               Login
-            </a>
+            </button>
           </div>
         </div>
           <div className="relative flex justify-center" ref={dropdownRef}>
             {isDropdownOpen && (
-                <div className="w-11/12 flex justify-center items-center h-48 mt-6 mb-6 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                    <div className="text-headline-text px-3 py-2">Feature 1</div>
-                    <div className="text-headline-text px-3 py-2">Feature 2</div>
-                    <div className="text-headline-text px-3 py-2">Feature 3</div>
+                <div className="w-11/12 flex justify-center items-center mt-6 mb-6 space-x-8">
+                    <NavCard heading="Feature 1" subtext="Some subtext"/>
+                    <NavCard  heading="Feature 2" subtext="Some subtext"/>
+                    <NavCard  heading="Feature 3" subtext="Some subtext"/>
                 </div>
             )}
           </div>

@@ -1,7 +1,10 @@
+import {Navbar} from './components/navbar'
 
 
 export default function Home() {
   return (
+    <>
+   <Navbar/>
     <main className='h-full flex justify-center items-center bg-bg-dark overflow-hidden mt-6'>
       <div className="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
         <div className="text-center">
@@ -23,5 +26,6 @@ export default function Home() {
         </div>
       </div>
     </main>
+     </>
   )
 }
