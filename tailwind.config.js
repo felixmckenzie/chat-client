@@ -13,7 +13,7 @@ module.exports = {
       "body-text-light": "#a7a9be",
       "text-dark": "#2e2f3e",
       "highlight": "#ff8906",
-      "tertiary": "#e53170"
+      "tertiary": "#e53170",
     },
     extend: {},
   },

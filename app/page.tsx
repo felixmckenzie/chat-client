@@ -1,11 +1,11 @@
-import {Navbar} from './components/navbar'
+import {Navbar} from './components/Navbar'
 
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <>
+    <div className='h-full w-full'>
    <Navbar/>
-    <main className='h-full flex justify-center items-center bg-bg-dark overflow-hidden mt-6'>
+    <main className='h-full flex justify-center items-center overflow-hidden mt-6'>
       <div className="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-base text-headline-text font-semibold tracking-wide uppercase">Welcome to </h2>
@@ -26,6 +26,6 @@ export default function Home() {
         </div>
       </div>
     </main>
-     </>
+     </div>
   )
 }

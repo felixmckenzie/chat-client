@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {ArrowSmallUpIcon, ArrowSmallDownIcon} from '@heroicons/react/24/solid'
-import { NavCard } from "./navcard";
+import { NavCard } from "./NavCard";
 
 export const Navbar = () => {
     const router = useRouter()
