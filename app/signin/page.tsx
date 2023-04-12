@@ -8,7 +8,9 @@ export default function Page() {
         formButtonPrimary: 'bg-highlight hover:bg-tertiary text-sm normal-case'
       }
     }}
-    signUpUrl='/signup' />
+    signUpUrl='/signup'
+    redirectUrl='/home'
+    />
     </div>
   )
 }

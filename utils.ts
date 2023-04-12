@@ -15,3 +15,7 @@ export const FormatDate = (date: string, showTime = true): string => {
     if (showTime) options = { ...options, hour: 'numeric', hour12: true, minute: '2-digit'}
     return dateObj.toLocaleString(undefined, options)
 }
+
+export const classNames = (...classes: string[]): string => {
+    return classes.filter(Boolean).join(' ')
+}

@@ -9,6 +9,7 @@ export default function Page() {
       }
     }}
     signInUrl='/signin'
+    redirectUrl='/signup/create-profile'
     />;
         </div>
    )
