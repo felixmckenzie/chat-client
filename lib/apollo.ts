@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, HttpLink, split, from, makeVar } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink, split, from, makeVar, ApolloLink } from "@apollo/client";
 import { onError } from '@apollo/client/link/error'
 import { setContext } from '@apollo/client/link/context'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
@@ -12,19 +12,19 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (networkError) console.error(`[Network error]: ${networkError}`)
 })
 
-const wsLink = new GraphQLWsLink(createClient({
+const wsLink =  typeof window !== 'undefined' ? new GraphQLWsLink(createClient({
   url: 'ws://localhost:4000/subscriptions',
-}));
+})) : null
 
 const httpLink =  new HttpLink({
         uri: 'http://localhost:4000/graphql',
+         credentials: 'include',
       })
 
      
 export const authTokenVar = makeVar('')
 const authLink = setContext((_, { headers }) => {
  const token = authTokenVar()
- console.log(token)
   return {
     headers: {
       ...headers,
@@ -43,7 +43,7 @@ const splitLink = split(
       definition.operation === 'subscription'
     );
   },
-  wsLink,
+  wsLink || new ApolloLink((operation, forward)=> forward(operation)),
   httpLink,
 );
 
