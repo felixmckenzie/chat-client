@@ -26,9 +26,9 @@ const httpLink = new HttpLink({
     credentials: 'include',
 })
 
-export const authTokenVar = makeVar('')
+export const setAuthToken = makeVar('')
 const authLink = setContext((_, { headers }) => {
-    const token = authTokenVar()
+    const token = setAuthToken()
     return {
         headers: {
             ...headers,

@@ -1,11 +1,14 @@
 'use client'
-import { FC, ChangeEvent, useEffect, useState } from 'react'
+import { FC, ChangeEvent, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm, Controller } from 'react-hook-form'
+import { setAuthToken } from '@/lib/apollo'
+import Loader from './Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z, string, boolean } from 'zod'
 import { useMutation } from '@apollo/client'
-import { getClient, authTokenVar } from '@/lib/apollo'
-import { useAuth, useUser } from '@clerk/nextjs'
+import { getClient } from '@/lib/apollo'
+import { useUser } from '@clerk/nextjs'
 import { Input } from './Input'
 import { FileInput } from './FileInput'
 import { TextArea } from './textArea'
@@ -33,22 +36,15 @@ interface UserFormInputs {
 //     role: string()
 // })
 
-export const UserForm: FC = () => {
-    const { getToken } = useAuth()
+export const UserForm: FC = ({ authToken }) => {
+    setAuthToken(authToken)
     const { user } = useUser()
     const client = getClient()
+    const router = useRouter()
+    const [loading, setLoading] = useState(false)
+
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
     const [fileInputKey, setFileInputKey] = useState(0)
-
-    useEffect(() => {
-        const fetchTokenAndUpdate = async () => {
-            if (getToken) {
-                const token = await getToken()
-                authTokenVar(token)
-            }
-        }
-        fetchTokenAndUpdate()
-    }, [getToken])
 
     const { handleSubmit, register, control, formState, setValue } = useForm<UserFormInputs>({
         defaultValues: {
@@ -91,7 +87,7 @@ export const UserForm: FC = () => {
         setFileInputKey((prevKey) => prevKey + 1)
     }
 
-    const uploadFile = async (file: File) => {
+    const uploadFile = async (file: File | null) => {
         const fileFormData = new FormData()
         if (file) {
             fileFormData.append('file', file)
@@ -102,15 +98,19 @@ export const UserForm: FC = () => {
             body: fileFormData,
         }).then((r) => r.json())
 
-        return fileData
+        return fileData?.secure_url
     }
 
     const onSubmit = async (data: UserFormInputs) => {
+        setLoading(true)
+        const file = data?.file
+        const cloudinaryImageURL = await uploadFile(file)
+
         const input: UserFormInputs = {
             isActive: data.isActive,
             role: data.role,
             username: data.username,
-            avatar: data?.file?.name,
+            avatar: cloudinaryImageURL,
             clerkId: user?.id,
             email: user?.primaryEmailAddress?.emailAddress,
         }
@@ -119,11 +119,22 @@ export const UserForm: FC = () => {
                 variables: {
                     input: input,
                 },
+                optimisticResponse: {
+                    createUser: {
+                        id: 'temp-id',
+                        __typename: 'User',
+                        ...input,
+                    },
+                },
             })
-            console.log(user?.data)
+            router.push('/home')
         } catch (error) {
             console.log(error)
         }
+    }
+
+    if (loading) {
+        return <Loader />
     }
 
     return (

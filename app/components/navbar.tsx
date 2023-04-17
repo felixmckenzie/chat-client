@@ -1,12 +1,10 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowSmallUpIcon, ArrowSmallDownIcon } from '@heroicons/react/24/solid'
 import { NavCard } from './NavCard'
 
 export const Navbar = () => {
-    const router = useRouter()
     const [isScrolled, setIsScrolled] = useState(false)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const dropdownRef = useRef(null)
