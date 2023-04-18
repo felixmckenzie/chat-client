@@ -26,17 +26,6 @@ const httpLink = new HttpLink({
     credentials: 'include',
 })
 
-export const setAuthToken = makeVar('')
-const authLink = setContext((_, { headers }) => {
-    const token = setAuthToken()
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : '',
-        },
-    }
-})
-
 let client: ApolloClient<any> | null = null
 
 const splitLink = split(
@@ -48,12 +37,20 @@ const splitLink = split(
     httpLink
 )
 
-export const getClient = () => {
-    // create a new client if there's no existing one
-    // or if we are running on the server.
+export const getClient = (getToken: () => Promise<string | null>) => {
+    const authLink = setContext(async (_, { headers }) => {
+        const token = await getToken()
+        return {
+            headers: {
+                ...headers,
+                authorization: token ? `Bearer ${token}` : '',
+            },
+        }
+    })
+
     if (!client || typeof window === 'undefined') {
         client = new ApolloClient({
-            link: from([errorLink, authLink, splitLink]),
+            link: from([authLink, errorLink, splitLink]),
             cache: new InMemoryCache(),
         })
     }
