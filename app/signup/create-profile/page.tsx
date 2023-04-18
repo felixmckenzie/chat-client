@@ -3,14 +3,12 @@ import { auth } from '@clerk/nextjs/app-beta'
 import { Suspense } from 'react'
 import Loader from '../../components/Loader'
 
-export default async function CreateProfile() {
-    const { getToken } = auth()
-    const token = await getToken()
-
+export default function CreateProfile() {
+ 
     return (
         <div className="h-full flex flex-col justify-center items-center ">
             <Suspense fallback={<Loader />}>
-                <UserForm authToken={token} />
+                <UserForm />
             </Suspense>
         </div>
     )

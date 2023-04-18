@@ -1,14 +1,13 @@
 'use client'
-import { FC, ChangeEvent, useState } from 'react'
+import { FC, ChangeEvent, useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm, Controller } from 'react-hook-form'
-import { setAuthToken } from '@/lib/apollo'
 import Loader from './Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z, string, boolean } from 'zod'
 import { useMutation } from '@apollo/client'
 import { getClient } from '@/lib/apollo'
-import { useUser } from '@clerk/nextjs'
+import { useUser, useAuth } from '@clerk/nextjs'
 import { Input } from './Input'
 import { FileInput } from './FileInput'
 import { TextArea } from './textArea'
@@ -36,16 +35,18 @@ interface UserFormInputs {
 //     role: string()
 // })
 
-export const UserForm: FC = ({ authToken }) => {
-    setAuthToken(authToken)
-    const { user } = useUser()
-    const client = getClient()
-    const router = useRouter()
-    const [loading, setLoading] = useState(false)
-
+export const UserForm: FC = () => {
+    // setAuthToken(authToken)
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
     const [fileInputKey, setFileInputKey] = useState(0)
+    const [token, setToken] = useState<string | null>(null)
+    const { user } = useUser()
 
+    const router = useRouter()
+    const [loading, setLoading] = useState(false)
+    const { getToken } = useAuth()
+    const client = getClient(getToken)
+  
     const { handleSubmit, register, control, formState, setValue } = useForm<UserFormInputs>({
         defaultValues: {
             clerkId: '',
@@ -60,7 +61,7 @@ export const UserForm: FC = ({ authToken }) => {
         // resolver: zodResolver(schema)
     })
 
-    const [createUser, create] = useMutation(queries.CREATE_USER, { client })
+    const [createUser] = useMutation(queries.CREATE_USER, { client })
 
     const { errors } = formState
 
@@ -113,6 +114,7 @@ export const UserForm: FC = ({ authToken }) => {
             avatar: cloudinaryImageURL,
             clerkId: user?.id,
             email: user?.primaryEmailAddress?.emailAddress,
+            about: data.about,
         }
         try {
             const user = await createUser({
@@ -133,7 +135,7 @@ export const UserForm: FC = ({ authToken }) => {
         }
     }
 
-    if (loading) {
+    if (loading || !client) {
         return <Loader />
     }
 

@@ -1,5 +1,8 @@
 const SideBarMenu = () => {
-    return <div></div>
+    return 
+    <div className="flex w-full ">
+
+    </div>
 }
 
 export default SideBarMenu
