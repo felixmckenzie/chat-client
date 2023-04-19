@@ -44,7 +44,7 @@ export const UserForm: FC = () => {
     const [loading, setLoading] = useState(false)
     const { getToken } = useAuth()
     const client = getClient(getToken)
-  
+
     const { handleSubmit, register, control, formState, setValue } = useForm<UserFormInputs>({
         defaultValues: {
             clerkId: '',
@@ -139,8 +139,8 @@ export const UserForm: FC = () => {
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-lg border-solid border-2 border-body-text-light shadow-md p-6 max-w-lg">
-                <AvatarPreview alt="Uploaded Avatar" avatarUrl={previewUrl} width={32} height={32} />
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-lg border-solid border-2 border-body-text-light shadow-md p-6 ">
+                <AvatarPreview alt="Uploaded Avatar" avatarUrl={previewUrl} width={16} height={16} />
                 <Controller
                     name="file"
                     control={control}
