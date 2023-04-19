@@ -1,25 +1,33 @@
 import Image from 'next/image'
 import { classNames } from '@/utils'
-type avatarProps = {
+
+type AvatarProps = {
     avatarUrl?: string | null
     alt: string
     width: number
     height: number
 }
 
-export const AvatarPreview = ({ avatarUrl, alt, width, height }: avatarProps) => {
+export const AvatarPreview = ({ avatarUrl, alt, width, height }: AvatarProps) => {
+    const widthClass = `w-${width}`
+    const heightClass = `h-${height}`
+
     return (
-        <div
-            className={classNames(
-                'bg-bg-light mx-auto mb-6 rounded-full flex items-center justify-center text-center text-body-text-light text-xs font-bold',
-                String('w-' + width),
-                String('h-' + height)
-            )}
-        >
+        <div>
             {avatarUrl ? (
-                <Image src={avatarUrl} alt={alt} width={width} height={height} className="w-full h-full object-cover rounded-full" />
+                <div className="flex flex-col justify-center items-center">
+                    <Image src={avatarUrl} alt={alt} width={80} height={80} quality={90} className="object-cover rounded-full" />
+                </div>
             ) : (
-                'Upload Avatar'
+                <div
+                    className={classNames(
+                        'bg-bg-light mx-auto mb-6 rounded-full flex flex-col items-center justify-center text-center text-body-text-light text-xs font-bold',
+                        widthClass,
+                        heightClass
+                    )}
+                >
+                    'Upload Avatar'
+                </div>
             )}
         </div>
     )
