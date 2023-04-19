@@ -4,11 +4,10 @@ import { useQuery } from '@apollo/client'
 import { useAuth } from '@clerk/nextjs'
 import { getClient } from '@/lib/apollo'
 import queries from '@/queries'
-import { messages } from '@/dummyData'
-import SideCard from './SideBarCard'
 import { AvatarPreview } from './AvatarPreview'
 import { ChatBubbleBottomCenterIcon, EllipsisVerticalIcon, UsersIcon } from '@heroicons/react/24/outline'
 import SideBarMenu from './SideBarMenu'
+import ChatList from './ChatList'
 type MenuKey = 'profile' | 'contacts' | 'chats'
 
 const SideBar = () => {
@@ -22,7 +21,8 @@ const SideBar = () => {
 
     const { data: userData } = useQuery(queries.GET_USER, { client, variables: { clerkId: userId } })
 
-    console.log(userData)
+    console.log(userData?.getUser)
+    const avatarUrl = userData?.getUser?.avatar
 
     const toggleMenu = (key: MenuKey) => {
         setMenuState((prevState) => {
@@ -39,7 +39,7 @@ const SideBar = () => {
     const options = [
         {
             key: 'profile',
-            icon: <AvatarPreview width={15} height={15} alt="avatar" avatarUrl={''} />,
+            icon: <AvatarPreview width={16} height={16} alt="avatar" avatarUrl={avatarUrl} />,
             onClick: () => toggleMenu('profile'),
         },
         {
@@ -60,8 +60,9 @@ const SideBar = () => {
     ]
 
     return (
-        <div className="flex flex-col h-full overflow-y-scroll w-4/12 border-r border-x-text-dark divide-y">
+        <div className="flex flex-col h-screen relative overflow-hidden w-4/12 border-r border-x-text-dark divide-y">
             <SideBarMenu options={options} />
+            {menuState.chats && <ChatList />}
         </div>
     )
 }
