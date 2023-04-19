@@ -36,10 +36,8 @@ interface UserFormInputs {
 // })
 
 export const UserForm: FC = () => {
-    // setAuthToken(authToken)
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
     const [fileInputKey, setFileInputKey] = useState(0)
-    const [token, setToken] = useState<string | null>(null)
     const { user } = useUser()
 
     const router = useRouter()
@@ -142,7 +140,7 @@ export const UserForm: FC = () => {
     return (
         <div className="flex flex-col justify-center items-center">
             <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-lg border-solid border-2 border-body-text-light shadow-md p-6 max-w-lg">
-                <AvatarPreview alt="Uploaded Avatar" avatarUrl={previewUrl} />
+                <AvatarPreview alt="Uploaded Avatar" avatarUrl={previewUrl} width={32} height={32} />
                 <Controller
                     name="file"
                     control={control}
