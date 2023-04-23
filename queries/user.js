@@ -8,6 +8,20 @@ export default {
         email
         about
         avatar
+        channels {
+          name
+          messages {
+            sender {
+              username
+            }
+            text
+          }
+        }
+        contacts {
+          contactUser{
+            username
+          }
+        }
       }
     }
   `,

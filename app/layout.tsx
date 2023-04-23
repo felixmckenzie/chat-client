@@ -9,7 +9,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <ClerkProvider>
             <html lang="en">
-                <body className="h-screen w-screen  bg-bg-dark">{children}</body>
+                <body className="h-screen w-screen bg-bg-dark text-body-text-light">{children}</body>
             </html>
         </ClerkProvider>
     )

@@ -9,7 +9,7 @@ import Loader from '@/components/Loader'
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex w-full">
+        <div className="flex w-full space-y-6">
             <Suspense fallback={<Loader />}>
                 <SideBar />
             </Suspense>

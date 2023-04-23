@@ -60,7 +60,7 @@ const SideBar = () => {
     ]
 
     return (
-        <div className="flex flex-col h-screen relative overflow-hidden w-4/12 border-r border-x-text-dark divide-y">
+        <div className="hidden md:flex flex-col h-screen relative overflow-hidden w-4/12 border-r border-x-text-dark divide-y">
             <SideBarMenu options={options} />
             {menuState.chats && <ChatList />}
         </div>

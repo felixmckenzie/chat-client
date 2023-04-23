@@ -16,12 +16,12 @@ export const AvatarPreview = ({ avatarUrl, alt, width, height }: AvatarProps) =>
         <div>
             {avatarUrl ? (
                 <div className="flex flex-col justify-center items-center">
-                    <Image src={avatarUrl} alt={alt} width={80} height={80} quality={90} className="object-cover rounded-full" />
+                    <Image src={avatarUrl} alt={alt} width={50} height={50} quality={90} className="object-cover rounded-full" />
                 </div>
             ) : (
                 <div
                     className={classNames(
-                        'bg-bg-light mx-auto mb-6 rounded-full flex flex-col items-center justify-center text-center text-body-text-light text-xs font-bold',
+                        'bg-bg-light rounded-full flex flex-col items-center justify-center text-center text-body-text-light text-xs font-bold',
                         widthClass,
                         heightClass
                     )}
