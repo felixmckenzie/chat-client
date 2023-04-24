@@ -13,7 +13,7 @@ export const AvatarPreview = ({ avatarUrl, alt, width, height }: AvatarProps) =>
     const heightClass = `h-${height}`
 
     return (
-        <div>
+        <>
             {avatarUrl ? (
                 <div className="flex flex-col justify-center items-center">
                     <Image src={avatarUrl} alt={alt} width={50} height={50} quality={90} className="object-cover rounded-full" />
@@ -21,14 +21,14 @@ export const AvatarPreview = ({ avatarUrl, alt, width, height }: AvatarProps) =>
             ) : (
                 <div
                     className={classNames(
-                        'bg-bg-light rounded-full flex flex-col items-center justify-center text-center text-body-text-light text-xs font-bold',
+                        'flex flex-col items-center justify-center text-center bg-bg-light rounded-full text-body-text-light text-xs font-bold',
                         widthClass,
                         heightClass
                     )}
                 >
-                    'Upload Avatar'
+                    Upload Avatar
                 </div>
             )}
-        </div>
+        </>
     )
 }

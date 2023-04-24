@@ -138,9 +138,11 @@ export const UserForm: FC = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center">
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-lg border-solid border-2 border-body-text-light shadow-md p-6 ">
-                <AvatarPreview alt="Uploaded Avatar" avatarUrl={previewUrl} width={16} height={16} />
+        <div className="mx-auto">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col rounded-lg border-solid border-2 border-body-text-light shadow-md p-6 ">
+                <div className="flex justify-center items-center">
+                    <AvatarPreview alt="Uploaded Avatar" avatarUrl={previewUrl} width={16} height={16} />
+                </div>
                 <Controller
                     name="file"
                     control={control}
