@@ -1,4 +1,4 @@
-import { UserForm } from '@/components/UserForm'
+import { UserForm } from '@/components/forms/UserForm'
 import { auth } from '@clerk/nextjs/app-beta'
 import { Suspense } from 'react'
 import Loader from '../../../../components/Loader'
