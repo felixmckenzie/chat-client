@@ -4,14 +4,15 @@ import Link from 'next/link'
 import { MobileNav } from './MobileNav'
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/solid'
-import { MainNavItem } from '@/types'
+import { NavItem } from '@/types'
 import { cn } from '@/utils'
 interface NavProps {
-    items?: MainNavItem[]
+    items?: NavItem[]
     children?: React.ReactNode
+    className?: string
 }
 
-export const Navbar = ({ items, children }: NavProps) => {
+export const Navbar = ({ items, children, className }: NavProps) => {
     const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const segment = useSelectedLayoutSegment()
     return (
@@ -25,7 +26,8 @@ export const Navbar = ({ items, children }: NavProps) => {
                             className={cn(
                                 'flex items-center text-lg font-semibold  sm:text-sm',
                                 item.href.startsWith(`/${segment}`) && 'text-headline-text',
-                                item.disabled && 'cursor-not-allowed opacity-80'
+                                item.disabled && 'cursor-not-allowed opacity-80',
+                                item.title === 'Add Friend' && className
                             )}
                         >
                             {item.title}

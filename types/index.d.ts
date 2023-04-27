@@ -4,9 +4,6 @@ export type NavItem = {
     disabled?: boolean
 }
 
-export type MainNavItem = NavItem
-
-export type MarketingConfig = {
-    mainNav: MainNavItem[]
+export type NavConfig = {
+    mainNav: NavItem[]
 }
-

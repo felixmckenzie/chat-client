@@ -1,6 +1,6 @@
-import { MarketingConfig } from '@/types'
+import { NavConfig } from '@/types'
 
-export const marketingConfig: MarketingConfig = {
+export const marketingConfig: NavConfig = {
     mainNav: [
         {
             title: 'Features',

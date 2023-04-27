@@ -54,16 +54,11 @@ const SideBar = () => {
             display: <UsersIcon className="w-5 h-5" />,
             onClick: () => toggleMenu('contacts'),
         },
-        {
-            key: 'menu',
-            display: <EllipsisVerticalIcon className="w-5 h-5" />,
-            onClick: () => toggleMenu('chats'),
-        },
     ]
 
     return (
         <div className="hidden md:flex flex-col h-screen w-6/12 overflow-hidden border-r border-x-text-dark divide-y">
-            <Menu options={options} className="justify-between" />
+            <Menu options={options} className="justify-start" />
             {menuState.chats && (
                 <List>
                     <div>
