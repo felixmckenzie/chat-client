@@ -1,5 +1,3 @@
-
-
 export type NavItem = {
     title: string
     href: string
@@ -9,5 +7,6 @@ export type NavItem = {
 export type MainNavItem = NavItem
 
 export type MarketingConfig = {
-  mainNav: MainNavItem[]
+    mainNav: MainNavItem[]
 }
+

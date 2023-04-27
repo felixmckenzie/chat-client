@@ -11,7 +11,7 @@ export default function LandingPage() {
                         <p className="mt-1 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-headline-text">Dev Chat</p>
                         <p className="mt-4 text-xl text-headline-text">A better way for software teams to communicate</p>
                         <div className="mt-8">
-                            <a href="#" className="text-base text-headline-text bg-highlight font-medium rounded-lg  w-48 py-3 px-8 hover:bg-purple-200">
+                            <a href="#" className="text-base text-headline-text bg-highlight font-medium rounded-lg  w-48 py-3 px-8">
                                 Get Started
                             </a>
                         </div>

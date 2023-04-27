@@ -5,9 +5,11 @@ import { useAuth } from '@clerk/nextjs'
 import { getClient } from '@/lib/apollo'
 import queries from '@/queries'
 import { AvatarPreview } from './AvatarPreview'
+import { messages } from '@/dummyData'
+import SideCard from './SideBarCard'
 import { ChatBubbleBottomCenterIcon, EllipsisVerticalIcon, UsersIcon } from '@heroicons/react/24/outline'
-import SideBarMenu from './SideBarMenu'
-import ChatList from './ChatList'
+import Menu from './Menu'
+import List from './SideBarList'
 type MenuKey = 'profile' | 'contacts' | 'chats'
 
 const SideBar = () => {
@@ -39,30 +41,38 @@ const SideBar = () => {
     const options = [
         {
             key: 'profile',
-            icon: <AvatarPreview width={16} height={16} alt="avatar" avatarUrl={avatarUrl} />,
+            display: <AvatarPreview width={16} height={16} alt="avatar" avatarUrl={avatarUrl} />,
             onClick: () => toggleMenu('profile'),
         },
         {
             key: 'chats',
-            icon: <ChatBubbleBottomCenterIcon className="w-5 h-55" />,
+            display: <ChatBubbleBottomCenterIcon className="w-5 h-5" />,
             onClick: () => toggleMenu('chats'),
         },
         {
             key: 'contacts',
-            icon: <UsersIcon className="w-5 h-5" />,
+            display: <UsersIcon className="w-5 h-5" />,
             onClick: () => toggleMenu('contacts'),
         },
         {
             key: 'menu',
-            icon: <EllipsisVerticalIcon className="w-5 h-5" />,
+            display: <EllipsisVerticalIcon className="w-5 h-5" />,
             onClick: () => toggleMenu('chats'),
         },
     ]
 
     return (
-        <div className="hidden md:flex flex-col h-screen relative overflow-hidden w-4/12 border-r border-x-text-dark divide-y">
-            <SideBarMenu options={options} />
-            {menuState.chats && <ChatList />}
+        <div className="hidden md:flex flex-col h-screen w-6/12 overflow-hidden border-r border-x-text-dark divide-y">
+            <Menu options={options} className="justify-between" />
+            {menuState.chats && (
+                <List>
+                    <div>
+                        {messages.map((message) => {
+                            return <SideCard key={message.id} title={message.sender} text={message.text} date={message.timestamp} />
+                        })}
+                    </div>
+                </List>
+            )}
         </div>
     )
 }
