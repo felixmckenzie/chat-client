@@ -1,5 +1,4 @@
-import SideBar from '../../../components/Sidebar'
-import '../../../components/Sidebar'
+import SideBar from '@/components/Sidebar'
 import { useQuery } from '@apollo/client'
 import { auth } from '@clerk/nextjs/app-beta'
 import { getClient } from '@/lib/apollo'
@@ -10,27 +9,26 @@ import Link from 'next/link'
 import { Navbar } from '@/components/Navbar'
 import { Tooltip } from '@/components/ToolTip'
 import { DashboardConfig } from '@/config/dashboard'
-import { InboxIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline'
+import { InboxIcon } from '@heroicons/react/24/outline'
+import UserAccountNav from '@/components/UserAccountNav'
 
-export default function HomeLayout({ children }: { children: React.ReactNode }) {
+export default function DashBoardLayout({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex w-full">
-            <Suspense fallback={<Loader />}>
-                <SideBar />
-            </Suspense>
+            <SideBar />
             <div className="w-full flex-grow">
                 <div className="flex h-16 justify-between items-center border-b border-b-headline-text px-4">
                     <Navbar items={DashboardConfig.mainNav} className="text-highlight" />
-                    <nav className="flex gap-6 px-6">
+                    <nav className="flex gap-6 items-center">
                         <Tooltip content="Inbox">
                             <Link href="/inbox" className="px-4">
                                 <InboxIcon className="w-5 h-5 text-headline-text" />
                             </Link>
                         </Tooltip>
                         <Tooltip content="Settings">
-                            <Link href="/" className="px-4">
-                                <EllipsisVerticalIcon className="w-5 h-5 text-headline-text" />
-                            </Link>
+                            <div className="flex col px-4 items-center">
+                                <UserAccountNav />
+                            </div>
                         </Tooltip>
                     </nav>
                 </div>

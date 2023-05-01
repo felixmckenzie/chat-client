@@ -127,7 +127,7 @@ export const UserForm: FC = () => {
                     },
                 },
             })
-            router.push('/home')
+            router.push('/dashboard/add-friend')
         } catch (error) {
             console.log(error)
         }

@@ -11,7 +11,7 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
                 <div className="flex h-16 items-center justify-between border-b border-b-headline-text px-4">
                     <Navbar items={marketingConfig.mainNav} />
                     <nav>
-                        <Link href="/login" className="px-4">
+                        <Link href="/signin" className="px-4">
                             Login
                         </Link>
                     </nav>

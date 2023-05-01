@@ -10,7 +10,7 @@ export default function Page() {
                     },
                 }}
                 signUpUrl="/signup"
-                redirectUrl="/home"
+                redirectUrl="/dashboard/add-friend"
             />
         </div>
     )
