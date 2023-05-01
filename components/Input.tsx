@@ -5,11 +5,12 @@ type InputProps = {
     name: string
     placeholder: string
     register: UseFormRegister<any>
+    children?: React.ReactNode
     type?: 'text' | 'number' | 'password' | 'file'
 }
-export const Input = ({ label, name, placeholder, type = 'text', register }: InputProps): JSX.Element => {
+export const Input = ({ label, name, placeholder, type = 'text', register, children }: InputProps): JSX.Element => {
     return (
-        <div className="flex flex-auto mt-6 pt-4 w-full relative">
+        <div className="flex pt-4 w-full relative">
             <label className="absolute top-2 left-2 inline-block px-1 text-xs font-medium text-headline-text" htmlFor={name}>
                 {label}
             </label>
@@ -20,6 +21,7 @@ export const Input = ({ label, name, placeholder, type = 'text', register }: Inp
                     placeholder={placeholder}
                     {...register(name)}
                 />
+                {children}
             </div>
         </div>
     )
