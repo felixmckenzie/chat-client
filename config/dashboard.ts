@@ -4,17 +4,17 @@ export const DashboardConfig: NavConfig = {
     mainNav: [
         {
             title: 'Add Friend',
-            href: '/add-friend',
+            href: '/dashboard/add-friend',
             disabled: false,
         },
         {
             title: 'Pending',
-            href: '/pending',
+            href: '/dashboard/pending',
             disabled: false,
         },
         {
             title: 'Online',
-            href: '/online',
+            href: '/dashboard/online',
             disabled: false,
         },
     ],
